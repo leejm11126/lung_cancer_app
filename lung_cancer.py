@@ -4,6 +4,10 @@ import joblib
 import time
 import matplotlib.pyplot as plt
 
+# 한글 폰트 설정
+plt.rcParams['font.family'] = 'Malgun Gothic'   # 윈도우
+plt.rcParams['axes.unicode_minus'] = False
+
 # ---------------- 페이지 설정 ----------------
 st.set_page_config(
     page_title="AI 환자 군집 예측 시스템",
