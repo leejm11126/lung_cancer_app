@@ -3,10 +3,9 @@ import pandas as pd
 import joblib
 import time
 import matplotlib.pyplot as plt
-import matplotlib.font_manager
 import matplotlib.font_manager as fm
 import os
-
+import urllib.request
 
 # ---------------- 페이지 설정 ----------------
 st.set_page_config(
@@ -15,9 +14,32 @@ st.set_page_config(
     layout="wide"
 )
 
-# ---------------- matplotlib 한글 설정 ----------------
-plt.rcParams['font.family'] = 'Malgun Gothic'
+# ---------------- matplotlib 한글 웹폰트 설정 ----------------
+@st.cache_resource
+def load_web_font():
+    # 리눅스 서버에서 파일 파싱 에러가 나지 않는 안전한 구글 한글 웹폰트(Jua) URL입니다.
+    font_url = "https://fonts.gstatic.com/s/jua/v15/Q0coXm1zn7OG_rE_Z79b.ttf"
+    font_name = "Jua-Regular.ttf"
+    
+    # 서버 내에 폰트 파일이 없으면 웹에서 다운로드
+    if not os.path.exists(font_name):
+        try:
+            urllib.request.urlretrieve(font_url, font_name)
+        except Exception as e:
+            st.error(f"폰트 다운로드 실패: {e}")
+    return font_name
+
+try:
+    web_font_path = load_web_font()
+    fm.fontManager.addfont(web_font_path)
+    prop = fm.FontProperties(fname=web_font_path)
+    plt.rcParams['font.family'] = prop.get_name()
+except Exception as e:
+    # 예외 발생 시 시스템 기본 고딕체 사용
+    plt.rcParams['font.family'] = 'sans-serif'
+
 plt.rcParams['axes.unicode_minus'] = False
+
 
 # ---------------- CSS 스타일 ----------------
 st.markdown("""
@@ -88,7 +110,6 @@ scaler = joblib.load("lung_scaler.pkl")
 df_original = pd.read_csv("lung.csv")
 
 # 컬럼명 확인 후 변경
-# 실제 CSV 컬럼명에 맞게 수정 가능
 df_original.columns = ['Name','Surname','나이','흡연','환경지','음주량','Result']
 
 # ---------------- 메인 카드 ----------------
@@ -339,5 +360,3 @@ if st.button("🔍 AI 군집 분석 시작"):
     )
 
 st.markdown('</div>', unsafe_allow_html=True)
-
-#py -m streamlit run lung_cancer.py
