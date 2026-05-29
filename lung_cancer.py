@@ -8,7 +8,7 @@ import matplotlib.font_manager as fm
 import os
 
 # 1. 레포지토리에 올린 폰트 파일의 경로를 지정합니다.
-font_path = "KCC도담도담체.ttf"
+font_path = "KCC.ttf"
 
 # 2. 만약 파일이 존재한다면 Matplotlib에 등록하고 기본 폰트로 설정합니다.
 if os.path.exists(font_path):
