@@ -6,7 +6,21 @@ import matplotlib.pyplot as plt
 import matplotlib.font_manager
 import matplotlib.font_manager as fm
 import os
+# 1. 영문으로 바꾼 폰트 파일 경로
+font_path = "KCCDodam.ttf"
 
+if os.path.exists(font_path):
+    # 2. Matplotlib 폰트 매니저에 폰트 파일을 직접 등록
+    fm.fontManager.addfont(font_path)
+    
+    # 3. 등록된 폰트의 정확한 이름을 매니저를 통해 찾아와서 지정
+    prop = fm.FontProperties(fname=font_path)
+    plt.rcParams['font.family'] = prop.get_name()
+else:
+    print(f"폰트 파일을 찾을 수 없습니다: {font_path}")
+
+# 4. 마이너스 기호 깨짐 방지
+plt.rcParams['axes.unicode_minus'] = False
 # 1. 레포지토리에 올린 폰트 파일의 경로를 지정합니다.
 font_path = "KCC.ttf"
 
