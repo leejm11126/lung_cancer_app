@@ -6,35 +6,7 @@ import matplotlib.pyplot as plt
 import matplotlib.font_manager
 import matplotlib.font_manager as fm
 import os
-# 1. 영문으로 바꾼 폰트 파일 경로
-font_path = "KCCDodam.ttf"
 
-if os.path.exists(font_path):
-    # 2. Matplotlib 폰트 매니저에 폰트 파일을 직접 등록
-    fm.fontManager.addfont(font_path)
-    
-    # 3. 등록된 폰트의 정확한 이름을 매니저를 통해 찾아와서 지정
-    prop = fm.FontProperties(fname=font_path)
-    plt.rcParams['font.family'] = prop.get_name()
-else:
-    print(f"폰트 파일을 찾을 수 없습니다: {font_path}")
-
-# 4. 마이너스 기호 깨짐 방지
-plt.rcParams['axes.unicode_minus'] = False
-# 1. 레포지토리에 올린 폰트 파일의 경로를 지정합니다.
-font_path = "KCC.ttf"
-
-# 2. 만약 파일이 존재한다면 Matplotlib에 등록하고 기본 폰트로 설정합니다.
-if os.path.exists(font_path):
-    # 폰트 프로퍼티 생성
-    font_prop = fm.FontProperties(fname=font_path)
-    # Matplotlib의 기본 폰트 패밀리 이름을 해당 폰트 이름으로 설정
-    plt.rcParams['font.family'] = font_prop.get_name()
-else:
-    print(f"폰트 파일을 찾을 수 없습니다: {font_path}")
-
-# 3. 그래프에서 마이너스(-) 기호가 깨지는 현상을 방지합니다.
-plt.rcParams['axes.unicode_minus'] = False
 
 # ---------------- 페이지 설정 ----------------
 st.set_page_config(
