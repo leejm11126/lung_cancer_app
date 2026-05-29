@@ -4,7 +4,23 @@ import joblib
 import time
 import matplotlib.pyplot as plt
 import matplotlib.font_manager
+import matplotlib.font_manager as fm
+import os
 
+# 1. 레포지토리에 올린 폰트 파일의 경로를 지정합니다.
+font_path = "KCC도담도담체.ttf"
+
+# 2. 만약 파일이 존재한다면 Matplotlib에 등록하고 기본 폰트로 설정합니다.
+if os.path.exists(font_path):
+    # 폰트 프로퍼티 생성
+    font_prop = fm.FontProperties(fname=font_path)
+    # Matplotlib의 기본 폰트 패밀리 이름을 해당 폰트 이름으로 설정
+    plt.rcParams['font.family'] = font_prop.get_name()
+else:
+    print(f"폰트 파일을 찾을 수 없습니다: {font_path}")
+
+# 3. 그래프에서 마이너스(-) 기호가 깨지는 현상을 방지합니다.
+plt.rcParams['axes.unicode_minus'] = False
 
 # ---------------- 페이지 설정 ----------------
 st.set_page_config(
