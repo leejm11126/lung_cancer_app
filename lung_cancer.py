@@ -3,7 +3,7 @@ import pandas as pd
 import joblib
 import time
 import matplotlib.pyplot as plt
-
+import matplotlib.font_manager
 # 한글 폰트 설정
 plt.rcParams['font.family'] = 'Malgun Gothic'   # 윈도우
 plt.rcParams['axes.unicode_minus'] = False
